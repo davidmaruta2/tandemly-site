@@ -92,11 +92,15 @@
   }
   .wordmark {
     font-weight: 700;
-    font-size: 23px;
+    font-size: 30px;
     letter-spacing: -0.02em;
     color: var(--off-white);
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
   }
-  .wordmark .dot { color: var(--gold-light); }
+  .wordmark .dot1 { color: var(--off-white); }
+  .wordmark .dot2 { color: var(--gold-light); }
   .nav-cta {
     font-weight: 700;
     font-size: 14px;
@@ -318,7 +322,7 @@
   <div class="blob blob-jade"></div>
 
   <nav class="wrap">
-    <div class="wordmark">Tandemly<span class="dot">.</span></div>
+    <div class="wordmark">Tandemly<span class="dot1">.</span><span class="dot2">.</span></div>
     <a class="nav-cta" href="#early-access">Get early access</a>
   </nav>
 
@@ -437,7 +441,7 @@
 
 <footer>
   <div class="wrap footer-row">
-    <div class="wordmark" style="font-size:18px">Tandemly<span class="dot">.</span></div>
+    <div class="wordmark" style="font-size:22px">Tandemly<span class="dot1">.</span><span class="dot2">.</span></div>
     <div class="footer-links">
       <a href="#early-access">Contact</a>
       <a href="#early-access">Support</a>

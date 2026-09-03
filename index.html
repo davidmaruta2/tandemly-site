@@ -288,6 +288,7 @@
   .form-status.ok { background: var(--champagne-soft); color: var(--evergreen); }
   .form-status.err { background: var(--champagne-soft); color: var(--ink); }
   .form-status.err a { color: var(--gold); font-weight: 600; text-decoration: underline; }
+  .form-hint { margin-top: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; color: var(--ink-muted); }
 
   footer.hero-band {
     padding: 44px 0 40px;
@@ -414,6 +415,7 @@
         </div>
         <button class="form-submit" type="submit" id="f-submit">Send message</button>
         <div class="form-status" id="f-status"></div>
+        <p class="form-hint">Opens your email app, addressed to us and ready to send.</p>
       </form>
     </div>
   </div>
@@ -431,20 +433,12 @@
 </footer>
 
 <script>
-  // Posts to /api/contact - a real serverless function once this page is
-  // deployed (see tandemly-splash-contact-function.js), same pattern as
-  // the app's own send-support-message: sends to admin@luxfordinteractive.com,
-  // reply-to set to whatever the visitor typed. Never fakes success - if
-  // the endpoint isn't there yet (like in this preview), it says so
-  // honestly and offers a direct email instead.
+  // GitHub Pages serves static files only - no server to actually send an
+  // email from. Rather than fake a "sent!" confirmation with nowhere for
+  // the message to go, this opens the visitor's own email app, addressed
+  // to admin@luxfordinteractive.com and pre-filled with what they typed -
+  // a real send, just via their own mail client instead of ours.
   var form = document.getElementById('contact-form');
-  var statusEl = document.getElementById('f-status');
-  var submitBtn = document.getElementById('f-submit');
-
-  function showStatus(kind, html) {
-    statusEl.className = 'form-status show ' + kind;
-    statusEl.innerHTML = html;
-  }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -453,30 +447,12 @@
     var message = document.getElementById('f-message').value.trim();
     if (!name || !email || !message) return;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, message: message }),
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error('not ok');
-        return res.json();
-      })
-      .then(function (data) {
-        if (!data || !data.ok) throw new Error('not ok');
-        showStatus('ok', "Thanks - we've got your message and will be in touch.");
-        form.reset();
-      })
-      .catch(function () {
-        showStatus('err', "This form isn't connected yet. Please email us directly at <a href=\"mailto:admin@luxfordinteractive.com\">admin@luxfordinteractive.com</a> in the meantime.");
-      })
-      .finally(function () {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send message';
-      });
+    var subject = 'Tandemly early access - ' + name;
+    var body = message + '\n\n(from ' + name + ', ' + email + ')';
+    var mailto = 'mailto:admin@luxfordinteractive.com'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
   });
 </script>
 </body>

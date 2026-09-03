@@ -4,62 +4,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tandemly</title>
-<meta name="description" content="A premium space for couples to meet other couples - discover, connect and plan together.">
+<meta name="description" content="Tandemly - the app for couples who want to meet other couples. One shared profile, real matches, real meets.">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap');
 
   :root {
     --bg: #FAF9F5;
-    --bg-alt: #F3F1EA;
     --surface: #FFFFFF;
-    --surface-muted: #E7EDEB;
-    --ink: #132420;
-    --ink-secondary: #43544F;
-    --ink-muted: #6E7C78;
+    --ink: #0B3B33;
+    --ink-soft: #43544F;
     --evergreen: #0B3B33;
     --petrol: #0F4A47;
     --sea-green: #1F7A6C;
+    --jade: #2C9184;
     --turquoise: #3AAF9F;
     --gold: #C08A2E;
     --gold-light: #E4B865;
     --champagne: #F3E3BE;
     --champagne-soft: #FAF2DF;
-    --border: #D6DFDC;
+    --coral: #E8735F;
     --off-white: #FAF9F5;
-    --danger: #D14E44;
+    --border: #D6DFDC;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #08211C;
-      --bg-alt: #0C2B24;
       --surface: #0F332B;
-      --surface-muted: #123B32;
       --ink: #FAF9F5;
-      --ink-secondary: #BFD6D0;
-      --ink-muted: #8FA9A2;
-      --gold: #E4B865;
-      --gold-light: #F0CB84;
-      --champagne: #3A2F19;
+      --ink-soft: #BFD6D0;
       --champagne-soft: #123B32;
       --border: #1B4A40;
-      --danger: #F0897C;
     }
   }
   :root[data-theme="dark"] {
     --bg: #08211C;
-    --bg-alt: #0C2B24;
     --surface: #0F332B;
-    --surface-muted: #123B32;
     --ink: #FAF9F5;
-    --ink-secondary: #BFD6D0;
-    --ink-muted: #8FA9A2;
-    --gold: #E4B865;
-    --gold-light: #F0CB84;
-    --champagne: #3A2F19;
+    --ink-soft: #BFD6D0;
     --champagne-soft: #123B32;
     --border: #1B4A40;
-    --danger: #F0897C;
   }
 
   * { box-sizing: border-box; }
@@ -67,262 +51,292 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: 'Newsreader', Georgia, serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  h1, h2, h3, .display, .wordmark, button, .btn, .badge, .eyebrow, .kicker, .step-num, .nav-cta {
     font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  h1, h2, h3 { font-weight: 600; text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; text-wrap: balance; font-weight: 700; }
   a { color: inherit; }
   img { max-width: 100%; }
   @media (prefers-reduced-motion: reduce) {
-    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
   }
+  html { scroll-behavior: smooth; }
 
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
 
-  /* ---------- Hero (dark green brand band) ---------- */
+  /* ============ HERO ============ */
   .hero-band {
-    background: linear-gradient(160deg, var(--evergreen) 0%, var(--petrol) 55%, var(--sea-green) 100%);
+    position: relative;
+    background: var(--evergreen);
     color: var(--off-white);
+    overflow: hidden;
   }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(0px);
+  }
+  .blob-gold { width: 520px; height: 520px; background: var(--gold-light); top: -160px; right: -140px; opacity: 0.95; }
+  .blob-coral { width: 260px; height: 260px; background: var(--coral); bottom: -90px; right: 220px; opacity: 0.9; }
+  .blob-jade { width: 180px; height: 180px; background: var(--turquoise); top: 60%; left: -60px; opacity: 0.35; }
+
   nav.wrap {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 26px;
-    padding-bottom: 26px;
+    padding-top: 28px;
+    padding-bottom: 20px;
   }
   .wordmark {
     font-weight: 700;
-    font-size: 22px;
-    letter-spacing: -0.01em;
-    display: flex;
-    align-items: baseline;
-    gap: 1px;
-    color: var(--gold-light);
-  }
-  .wordmark .dot1 { color: var(--off-white); }
-  .wordmark .dot2 { color: var(--gold-light); }
-
-  .nav-cta {
-    font-weight: 600;
-    font-size: 13.5px;
-    padding: 10px 20px;
-    border-radius: 100px;
-    border: 1.5px solid rgba(250,249,245,0.28);
-    text-decoration: none;
+    font-size: 23px;
+    letter-spacing: -0.02em;
     color: var(--off-white);
+  }
+  .wordmark .dot { color: var(--gold-light); }
+  .nav-cta {
+    font-weight: 700;
+    font-size: 14px;
+    padding: 11px 22px;
+    border-radius: 100px;
+    background: var(--off-white);
+    color: var(--evergreen);
+    text-decoration: none;
     white-space: nowrap;
   }
 
-  header.hero {
-    padding-top: 40px;
-    padding-bottom: 76px;
-  }
-  .hero-inner { max-width: 600px; }
-  .eyebrow {
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-    margin-bottom: 20px;
-  }
-  h1.headline {
-    font-size: clamp(36px, 5.6vw, 54px);
-    line-height: 1.1;
-    color: var(--off-white);
-  }
-  h1.headline em { font-style: normal; color: var(--gold-light); }
-  .sub {
-    margin-top: 22px;
-    font-family: 'Newsreader', serif;
-    font-style: italic;
-    font-size: 19px;
-    line-height: 1.65;
-    color: rgba(250,249,245,0.82);
-    max-width: 470px;
-  }
-  .hero-ctas {
-    margin-top: 32px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .btn-primary {
+  header.hero { position: relative; z-index: 2; padding: 64px 0 0; }
+  .hero-inner { max-width: 720px; }
+  .badge-pill {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    background: rgba(250,249,245,0.14);
+    border: 1px solid rgba(250,249,245,0.28);
+    padding: 7px 16px 7px 8px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 28px;
+  }
+  .badge-pill .dot-live {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--gold-light);
+    box-shadow: 0 0 0 0 rgba(228,184,101,0.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(228,184,101,0.6); }
+    70% { box-shadow: 0 0 0 8px rgba(228,184,101,0); }
+    100% { box-shadow: 0 0 0 0 rgba(228,184,101,0); }
+  }
+
+  h1.headline {
+    font-size: clamp(44px, 8vw, 84px);
+    line-height: 0.98;
+    color: var(--off-white);
+  }
+  h1.headline .accent { color: var(--gold-light); }
+  h1.headline .accent2 {
+    color: var(--evergreen);
+    background: var(--coral);
+    padding: 0 14px;
+    border-radius: 14px;
+    display: inline-block;
+  }
+
+  .sub {
+    margin-top: 26px;
+    font-size: 19px;
+    line-height: 1.55;
+    color: rgba(250,249,245,0.86);
+    max-width: 460px;
+    font-weight: 500;
+  }
+  .hero-ctas { margin-top: 36px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     background: var(--gold-light);
     color: var(--evergreen);
     font-weight: 700;
-    font-size: 14.5px;
-    padding: 14px 26px;
+    font-size: 16px;
+    padding: 17px 30px;
     border-radius: 100px;
     text-decoration: none;
     border: none;
     cursor: pointer;
+    box-shadow: 0 10px 30px -8px rgba(228,184,101,0.6);
+    transition: transform 0.15s ease;
   }
-  .btn-primary::after { content: '→'; font-family: sans-serif; }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-primary svg { width: 18px; height: 18px; }
 
-  /* store badges */
-  .store-badges { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
-  .store-badge {
+  .word-strip {
+    position: relative;
+    z-index: 2;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1.5px solid rgba(250,249,245,0.22);
-    border-radius: 12px;
-    padding: 9px 16px 9px 13px;
-    opacity: 0.55;
-    cursor: default;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 44px 0 0;
   }
-  .store-badge svg { width: 22px; height: 22px; fill: var(--off-white); flex: none; }
-  .store-badge-text { line-height: 1.2; }
-  .store-badge-text .small { display: block; font-size: 10px; color: rgba(250,249,245,0.65); }
-  .store-badge-text .big { display: block; font-size: 15px; font-weight: 600; color: var(--off-white); }
-  .store-note { margin-top: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; color: rgba(250,249,245,0.55); }
-
-  /* ---------- Sections ---------- */
-  section { padding: 78px 0; border-top: 1px solid var(--border); }
-  .section-head { max-width: 560px; margin-bottom: 52px; }
-  .kicker {
-    font-size: 12.5px;
+  .word-chip {
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
+    font-size: 14px;
+    padding: 9px 18px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(250,249,245,0.24);
+    color: rgba(250,249,245,0.9);
   }
-  h2.section-title { font-size: clamp(26px, 3.4vw, 33px); line-height: 1.22; }
-  .section-body { margin-top: 14px; font-size: 17px; line-height: 1.65; color: var(--ink-secondary); }
+  .word-chip.on { background: var(--off-white); color: var(--evergreen); border-color: var(--off-white); }
 
-  /* how it works */
-  .steps {
+  .store-row { position: relative; z-index: 2; margin-top: 48px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .store-badge {
+    display: flex; align-items: center; gap: 10px;
+    border: 1.5px solid rgba(250,249,245,0.24);
+    border-radius: 12px; padding: 10px 16px 10px 13px;
+    opacity: 0.55;
+  }
+  .store-badge svg { width: 20px; height: 20px; fill: var(--off-white); flex: none; }
+  .store-badge-text { line-height: 1.15; }
+  .store-badge-text .small { display: block; font-size: 9.5px; color: rgba(250,249,245,0.6); }
+  .store-badge-text .big { display: block; font-size: 14px; font-weight: 700; color: var(--off-white); }
+  .store-note { position: relative; z-index: 2; margin-top: 14px; font-size: 12.5px; color: rgba(250,249,245,0.55); font-weight: 500; }
+
+  .hero-spacer { height: 90px; }
+
+  /* ============ HOW IT WORKS ============ */
+  section.steps-section { padding: 100px 0 90px; }
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: var(--champagne);
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  h2.section-title { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.05; max-width: 680px; }
+  .section-body { margin-top: 16px; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 520px; font-weight: 500; }
+
+  .steps-grid {
+    margin-top: 56px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .steps-grid { grid-template-columns: 1fr; } }
+  .step-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 22px;
+    padding: 28px 24px;
+    position: relative;
     overflow: hidden;
   }
-  @media (max-width: 720px) { .steps { grid-template-columns: 1fr; } }
-  .step { background: var(--surface); padding: 32px 30px; }
-  .step-num { font-weight: 600; font-size: 14px; color: var(--gold); margin-bottom: 14px; }
-  .step h3 { font-size: 19px; font-weight: 600; margin-bottom: 10px; }
-  .step p { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--ink-secondary); font-family: 'Newsreader', serif; }
+  .step-card:nth-child(1) { background: var(--evergreen); border-color: var(--evergreen); }
+  .step-card:nth-child(1) .step-num { color: var(--gold-light); }
+  .step-card:nth-child(1) h3, .step-card:nth-child(1) p { color: var(--off-white); }
+  .step-card:nth-child(1) p { opacity: 0.82; }
+  .step-num { font-weight: 700; font-size: 42px; color: var(--champagne); line-height: 1; margin-bottom: 18px; letter-spacing: -0.02em; }
+  .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .step-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); font-weight: 500; }
 
-  /* trust */
-  .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  @media (max-width: 720px) { .trust-row { grid-template-columns: 1fr; } }
-  .trust-item { display: flex; gap: 16px; }
+  /* ============ TRUST (diagonal color block) ============ */
+  section.trust-section {
+    background: var(--champagne-soft);
+    padding: 90px 0;
+    position: relative;
+  }
+  .trust-head { max-width: 620px; margin-bottom: 50px; }
+  .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 800px) { .trust-row { grid-template-columns: 1fr; } }
+  .trust-card {
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 28px 24px;
+    border: 2px solid var(--border);
+  }
   .trust-mark {
-    flex: none; width: 40px; height: 40px; border-radius: 12px;
+    width: 46px; height: 46px; border-radius: 13px;
     background: var(--evergreen);
     display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
   }
-  .trust-mark svg { width: 18px; height: 18px; stroke: var(--gold-light); }
-  .trust-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; font-family: 'Space Grotesk', sans-serif; }
-  .trust-item p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-secondary); font-family: 'Newsreader', serif; }
+  .trust-mark svg { width: 20px; height: 20px; stroke: var(--gold-light); }
+  .trust-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .trust-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); font-weight: 500; }
 
-  /* ---------- Early access / contact form ---------- */
-  .access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-  @media (max-width: 800px) { .access-grid { grid-template-columns: 1fr; } }
-  .form-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 30px;
-  }
-  .field { margin-bottom: 16px; }
-  .field label {
-    display: block;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    color: var(--ink-secondary);
-    margin-bottom: 7px;
-  }
-  .field input, .field textarea {
-    width: 100%;
-    background: var(--surface-muted);
-    border: 1.5px solid transparent;
-    border-radius: 10px;
-    padding: 12px 14px;
-    font-family: 'Newsreader', serif;
-    font-size: 15.5px;
-    color: var(--ink);
-    outline: none;
-  }
-  .field input:focus, .field textarea:focus { border-color: var(--gold); background: var(--surface); }
-  .field textarea { resize: vertical; min-height: 100px; font-family: 'Newsreader', serif; }
-  .form-submit {
-    width: 100%;
+  /* ============ EARLY ACCESS ============ */
+  section.access-section {
     background: var(--evergreen);
     color: var(--off-white);
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 15px;
-    padding: 13px 20px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 4px;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
   }
-  .form-submit:disabled { opacity: 0.6; cursor: default; }
-  .form-status {
-    margin-top: 14px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13.5px;
-    line-height: 1.55;
-    padding: 12px 14px;
-    border-radius: 10px;
-    display: none;
-  }
-  .form-status.show { display: block; }
-  .form-status.ok { background: var(--champagne-soft); color: var(--evergreen); }
-  .form-status.err { background: var(--champagne-soft); color: var(--ink); }
-  .form-status.err a { color: var(--gold); font-weight: 600; text-decoration: underline; }
-  .form-hint { margin-top: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; color: var(--ink-muted); }
+  .access-blob { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: var(--coral); opacity: 0.16; top: -140px; left: -120px; }
+  .access-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: start; }
+  @media (max-width: 800px) { .access-grid { grid-template-columns: 1fr; } }
+  .access-copy h2 { color: var(--off-white); font-size: clamp(30px, 4.4vw, 44px); }
+  .access-copy p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: rgba(250,249,245,0.82); max-width: 440px; font-weight: 500; }
 
-  footer.hero-band {
-    padding: 44px 0 40px;
+  .form-card { background: var(--off-white); border-radius: 22px; padding: 30px; }
+  .field { margin-bottom: 15px; }
+  .field label { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink-soft); margin-bottom: 7px; }
+  .field input, .field textarea {
+    width: 100%; background: var(--champagne-soft); border: 2px solid transparent; border-radius: 12px;
+    padding: 12px 14px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: var(--evergreen); outline: none;
   }
-  .footer-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+  .field input:focus, .field textarea:focus { border-color: var(--gold); }
+  .field textarea { resize: vertical; min-height: 96px; }
+  .form-submit {
+    width: 100%; background: var(--gold-light); color: var(--evergreen);
+    font-weight: 700; font-size: 15.5px; padding: 14px 20px; border-radius: 12px; border: none; cursor: pointer; margin-top: 4px;
   }
-  .footer-links { display: flex; gap: 22px; font-family: 'Space Grotesk', sans-serif; font-size: 13.5px; color: rgba(250,249,245,0.7); }
+  .form-hint { margin-top: 12px; font-size: 12.5px; color: var(--ink-soft); font-weight: 500; }
+
+  /* ============ FOOTER ============ */
+  footer { background: var(--evergreen); padding: 34px 0 40px; border-top: 1px solid rgba(250,249,245,0.12); }
+  .footer-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-links { display: flex; gap: 22px; font-size: 13.5px; font-weight: 600; color: rgba(250,249,245,0.7); }
   .footer-links a { text-decoration: none; }
   .footer-links a:hover { color: var(--off-white); }
-  .footer-note { font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; color: rgba(250,249,245,0.45); margin-top: 16px; }
+  .footer-note { font-size: 12.5px; color: rgba(250,249,245,0.42); margin-top: 16px; font-weight: 500; }
 </style>
 </head>
 <body>
 
 <div class="hero-band">
+  <div class="blob blob-gold"></div>
+  <div class="blob blob-coral"></div>
+  <div class="blob blob-jade"></div>
+
   <nav class="wrap">
-    <div class="wordmark"><span class="dot1">.</span>Tandemly<span class="dot2">.</span></div>
+    <div class="wordmark">Tandemly<span class="dot">.</span></div>
     <a class="nav-cta" href="#early-access">Get early access</a>
   </nav>
 
   <header class="hero">
     <div class="wrap hero-inner">
-      <div class="eyebrow">Launching soon</div>
-      <h1 class="headline">Meet other couples, <em>together</em>.</h1>
-      <p class="sub">Tandemly is a space for couples who want to meet other couples - not swipe alone, but discover, connect and plan a real meet as a pair.</p>
+      <div class="badge-pill"><span class="dot-live"></span>Launching soon</div>
+      <h1 class="headline">Meet couples<br>you actually<br><span class="accent">click</span> with.</h1>
+      <p class="sub">Tandemly is the app for couples who want to meet other couples - discover, wave, chat, and plan a real meet, together.</p>
       <div class="hero-ctas">
-        <a class="btn-primary" href="#early-access">Get early access</a>
+        <a class="btn-primary" href="#early-access">Get early access <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <div class="store-badges">
+      <div class="word-strip">
+        <span class="word-chip on">One shared profile</span>
+        <span class="word-chip">Real matches</span>
+        <span class="word-chip">Real meets</span>
+        <span class="word-chip">No pressure</span>
+      </div>
+      <div class="store-row">
         <div class="store-badge">
           <svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141 8 184.8 8 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-65.7-90-65.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
           <div class="store-badge-text"><span class="small">Coming soon on the</span><span class="big">App Store</span></div>
@@ -333,97 +347,97 @@
         </div>
       </div>
       <div class="store-note">Neither store listing is live yet - both links will connect once we launch.</div>
+      <div class="hero-spacer"></div>
     </div>
   </header>
 </div>
 
-<section>
+<section class="steps-section">
   <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">How it works</div>
-      <h2 class="section-title">One profile, built by both of you.</h2>
-      <p class="section-body">You and your partner write your Tandem profile together, then meet other couples who are looking for the same thing you are.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
+    <div class="section-eyebrow">How it works</div>
+    <h2 class="section-title">Four steps from "hi" to an actual plan.</h2>
+    <p class="section-body">You and your partner build one profile together, then meet other couples who are looking for the same thing you are.</p>
+    <div class="steps-grid">
+      <div class="step-card">
         <div class="step-num">01</div>
         <h3>One shared profile</h3>
-        <p>You and your partner each write your own part of a single profile. No mixed signals, no guessing who you're really talking to - just one honest picture of you both.</p>
+        <p>You and your partner each write your own part. No mixed signals, no guessing who's really talking - just one honest picture of you both.</p>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">02</div>
         <h3>Meet couples you click with</h3>
-        <p>Browse couples nearby, wave at the ones you're curious about, and see who's waved back. When it's mutual, a chat opens automatically.</p>
+        <p>Browse couples nearby, wave at the ones you're curious about, and see who's waved back. Mutual? A chat opens automatically.</p>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">03</div>
         <h3>Plan a real meet</h3>
-        <p>Once you're chatting, pick an activity, a time and a place, and send it as a proposal your match can confirm in one tap.</p>
+        <p>Pick an activity, a time and a place, send it as a proposal - your match confirms it in one tap.</p>
       </div>
-      <div class="step">
+      <div class="step-card">
         <div class="step-num">04</div>
-        <h3>Honest reviews after you meet</h3>
-        <p>Once a planned meet has happened, both couples can leave a private review. Reviews only go live once both sides have shared theirs, so nobody holds back.</p>
+        <h3>Honest reviews</h3>
+        <p>After you've actually met, both couples can leave a private review. It only goes live once both sides have shared theirs.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="trust-section">
   <div class="wrap">
-    <div class="section-head">
-      <div class="kicker">Built for trust</div>
+    <div class="trust-head">
+      <div class="section-eyebrow">Built for trust</div>
       <h2 class="section-title">Yours to control, start to finish.</h2>
     </div>
     <div class="trust-row">
-      <div class="trust-item">
+      <div class="trust-card">
         <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6z"/></svg></div>
-        <div><h3>Report or block, one tap</h3><p>If a match isn't a good fit, ending it and reporting it takes a moment - no explanation owed.</p></div>
+        <h3>Report or block, one tap</h3>
+        <p>If a match isn't a good fit, ending it and reporting it takes a moment - no explanation owed.</p>
       </div>
-      <div class="trust-item">
+      <div class="trust-card">
         <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.3 7-11a7 7 0 0 0-14 0c0 4.7 7 11 7 11z"/></svg></div>
-        <div><h3>Your location stays yours</h3><p>Other couples only ever see an approximate area and distance - never your exact location.</p></div>
+        <h3>Your location stays yours</h3>
+        <p>Other couples only ever see an approximate area and distance - never your exact location.</p>
       </div>
-      <div class="trust-item">
+      <div class="trust-card">
         <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg></div>
-        <div><h3>Real couples, real photos</h3><p>Every profile photo is of the two of you together - never a stranger's, never AI-generated.</p></div>
+        <h3>Real couples, real photos</h3>
+        <p>Every profile photo is of the two of you together - never a stranger's, never AI-generated.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="early-access">
-  <div class="wrap">
-    <div class="access-grid">
-      <div>
-        <div class="kicker">Early access</div>
-        <h2 class="section-title">Be one of the first couples on Tandemly.</h2>
-        <p class="section-body">We're finishing up before launch. Leave a message and we'll let you know the moment it's live.</p>
-      </div>
-      <form class="form-card" id="contact-form">
-        <div class="field">
-          <label for="f-name">Your name</label>
-          <input id="f-name" type="text" required autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="f-email">Email</label>
-          <input id="f-email" type="email" required autocomplete="email">
-        </div>
-        <div class="field">
-          <label for="f-message">Message</label>
-          <textarea id="f-message" required></textarea>
-        </div>
-        <button class="form-submit" type="submit" id="f-submit">Send message</button>
-        <div class="form-status" id="f-status"></div>
-        <p class="form-hint">Opens your email app, addressed to us and ready to send.</p>
-      </form>
+<section class="access-section" id="early-access">
+  <div class="access-blob"></div>
+  <div class="wrap access-grid">
+    <div class="access-copy">
+      <div class="section-eyebrow" style="background:rgba(250,249,245,0.14);color:var(--gold-light)">Early access</div>
+      <h2>Be one of the first couples on Tandemly.</h2>
+      <p>We're finishing up before launch. Leave a message and we'll let you know the moment it's live.</p>
     </div>
+    <form class="form-card" id="contact-form">
+      <div class="field">
+        <label for="f-name">Your name</label>
+        <input id="f-name" type="text" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" required></textarea>
+      </div>
+      <button class="form-submit" type="submit" id="f-submit">Send message</button>
+      <p class="form-hint">Opens your email app, addressed to us and ready to send.</p>
+    </form>
   </div>
 </section>
 
-<footer class="hero-band">
+<footer>
   <div class="wrap footer-row">
-    <div class="wordmark" style="font-size:17px"><span class="dot1">.</span>Tandemly<span class="dot2">.</span></div>
+    <div class="wordmark" style="font-size:18px">Tandemly<span class="dot">.</span></div>
     <div class="footer-links">
       <a href="#early-access">Contact</a>
       <a href="#early-access">Support</a>

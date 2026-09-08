@@ -1,477 +1,159 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tandemly</title>
-<meta name="description" content="Tandemly - the app for couples who want to meet other couples. One shared profile, real matches, real meets.">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap');
-
-  :root {
-    --bg: #FAF9F5;
-    --surface: #FFFFFF;
-    --ink: #0B3B33;
-    --ink-soft: #43544F;
-    --evergreen: #0B3B33;
-    --petrol: #0F4A47;
-    --sea-green: #1F7A6C;
-    --jade: #2C9184;
-    --turquoise: #3AAF9F;
-    --gold: #C08A2E;
-    --gold-light: #E4B865;
-    --champagne: #F3E3BE;
-    --champagne-soft: #FAF2DF;
-    --coral: #E8735F;
-    --off-white: #FAF9F5;
-    --border: #D6DFDC;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #08211C;
-      --surface: #0F332B;
-      --ink: #FAF9F5;
-      --ink-soft: #BFD6D0;
-      --champagne-soft: #123B32;
-      --border: #1B4A40;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #08211C;
-    --surface: #0F332B;
-    --ink: #FAF9F5;
-    --ink-soft: #BFD6D0;
-    --champagne-soft: #123B32;
-    --border: #1B4A40;
-  }
-
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; text-wrap: balance; font-weight: 700; }
-  a { color: inherit; }
-  img { max-width: 100%; }
-  @media (prefers-reduced-motion: reduce) {
-    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-  }
-  html { scroll-behavior: smooth; }
-
-  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-
-  /* ============ HERO ============ */
-  .hero-band {
-    position: relative;
-    background: var(--evergreen);
-    color: var(--off-white);
-    overflow: hidden;
-  }
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(0px);
-  }
-  .blob-gold { width: 520px; height: 520px; background: var(--gold-light); top: -160px; right: -140px; opacity: 0.95; }
-  .blob-coral { width: 260px; height: 260px; background: var(--coral); bottom: -90px; right: 220px; opacity: 0.9; }
-  .blob-jade { width: 180px; height: 180px; background: var(--turquoise); top: 60%; left: -60px; opacity: 0.35; }
-
-  nav.wrap {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 28px;
-    padding-bottom: 20px;
-  }
-  .wordmark {
-    font-weight: 700;
-    font-size: 30px;
-    letter-spacing: -0.02em;
-    color: var(--off-white);
-    display: flex;
-    align-items: baseline;
-    gap: 1px;
-  }
-  .wordmark .dot1 { color: var(--off-white); }
-  .wordmark .dot2 { color: var(--gold-light); }
-  .nav-cta {
-    font-weight: 700;
-    font-size: 14px;
-    padding: 11px 22px;
-    border-radius: 100px;
-    background: var(--off-white);
-    color: var(--evergreen);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  header.hero { position: relative; z-index: 2; padding: 64px 0 0; }
-  .hero-inner { max-width: 720px; }
-  .badge-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(250,249,245,0.14);
-    border: 1px solid rgba(250,249,245,0.28);
-    padding: 7px 16px 7px 8px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 28px;
-  }
-  .badge-pill .dot-live {
-    width: 8px; height: 8px; border-radius: 50%; background: var(--gold-light);
-    box-shadow: 0 0 0 0 rgba(228,184,101,0.7);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(228,184,101,0.6); }
-    70% { box-shadow: 0 0 0 8px rgba(228,184,101,0); }
-    100% { box-shadow: 0 0 0 0 rgba(228,184,101,0); }
-  }
-
-  h1.headline {
-    font-size: clamp(44px, 8vw, 84px);
-    line-height: 0.98;
-    color: var(--off-white);
-  }
-  h1.headline .accent { color: var(--gold-light); }
-  h1.headline .accent2 {
-    color: var(--evergreen);
-    background: var(--coral);
-    padding: 0 14px;
-    border-radius: 14px;
-    display: inline-block;
-  }
-
-  .sub {
-    margin-top: 26px;
-    font-size: 19px;
-    line-height: 1.55;
-    color: rgba(250,249,245,0.86);
-    max-width: 460px;
-    font-weight: 500;
-  }
-  .hero-ctas { margin-top: 36px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--gold-light);
-    color: var(--evergreen);
-    font-weight: 700;
-    font-size: 16px;
-    padding: 17px 30px;
-    border-radius: 100px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 10px 30px -8px rgba(228,184,101,0.6);
-    transition: transform 0.15s ease;
-  }
-  .btn-primary:hover { transform: translateY(-2px); }
-  .btn-primary svg { width: 18px; height: 18px; }
-
-  .word-strip {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 44px 0 0;
-  }
-  .word-chip {
-    font-weight: 600;
-    font-size: 14px;
-    padding: 9px 18px;
-    border-radius: 100px;
-    border: 1.5px solid rgba(250,249,245,0.24);
-    color: rgba(250,249,245,0.9);
-  }
-  .word-chip.on { background: var(--off-white); color: var(--evergreen); border-color: var(--off-white); }
-
-  .store-row { position: relative; z-index: 2; margin-top: 48px; display: flex; gap: 12px; flex-wrap: wrap; }
-  .store-badge {
-    display: flex; align-items: center; gap: 10px;
-    border: 1.5px solid rgba(250,249,245,0.24);
-    border-radius: 12px; padding: 10px 16px 10px 13px;
-    opacity: 0.55;
-  }
-  .store-badge svg { width: 20px; height: 20px; fill: var(--off-white); flex: none; }
-  .store-badge-text { line-height: 1.15; }
-  .store-badge-text .small { display: block; font-size: 9.5px; color: rgba(250,249,245,0.6); }
-  .store-badge-text .big { display: block; font-size: 14px; font-weight: 700; color: var(--off-white); }
-  .store-note { position: relative; z-index: 2; margin-top: 14px; font-size: 12.5px; color: rgba(250,249,245,0.55); font-weight: 500; }
-
-  .hero-spacer { height: 90px; }
-
-  /* ============ HOW IT WORKS ============ */
-  section.steps-section { padding: 100px 0 90px; }
-  .section-eyebrow {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 100px;
-    background: var(--champagne);
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-  h2.section-title { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.05; max-width: 680px; }
-  .section-body { margin-top: 16px; font-size: 17px; line-height: 1.6; color: var(--ink-soft); max-width: 520px; font-weight: 500; }
-
-  .steps-grid {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .steps-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .steps-grid { grid-template-columns: 1fr; } }
-  .step-card {
-    background: var(--surface);
-    border: 2px solid var(--border);
-    border-radius: 22px;
-    padding: 28px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-  .step-card:nth-child(1) { background: var(--evergreen); border-color: var(--evergreen); }
-  .step-card:nth-child(1) .step-num { color: var(--gold-light); }
-  .step-card:nth-child(1) h3, .step-card:nth-child(1) p { color: var(--off-white); }
-  .step-card:nth-child(1) p { opacity: 0.82; }
-  .step-num { font-weight: 700; font-size: 42px; color: var(--champagne); line-height: 1; margin-bottom: 18px; letter-spacing: -0.02em; }
-  .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-  .step-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); font-weight: 500; }
-
-  /* ============ TRUST (diagonal color block) ============ */
-  section.trust-section {
-    background: var(--champagne-soft);
-    padding: 90px 0;
-    position: relative;
-  }
-  .trust-head { max-width: 620px; margin-bottom: 50px; }
-  .trust-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  @media (max-width: 800px) { .trust-row { grid-template-columns: 1fr; } }
-  .trust-card {
-    background: var(--surface);
-    border-radius: 20px;
-    padding: 28px 24px;
-    border: 2px solid var(--border);
-  }
-  .trust-mark {
-    width: 46px; height: 46px; border-radius: 13px;
-    background: var(--evergreen);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 18px;
-  }
-  .trust-mark svg { width: 20px; height: 20px; stroke: var(--gold-light); }
-  .trust-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-  .trust-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); font-weight: 500; }
-
-  /* ============ EARLY ACCESS ============ */
-  section.access-section {
-    background: var(--evergreen);
-    color: var(--off-white);
-    padding: 100px 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .access-blob { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: var(--coral); opacity: 0.16; top: -140px; left: -120px; }
-  .access-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: start; }
-  @media (max-width: 800px) { .access-grid { grid-template-columns: 1fr; } }
-  .access-copy h2 { color: var(--off-white); font-size: clamp(30px, 4.4vw, 44px); }
-  .access-copy p { margin-top: 16px; font-size: 17px; line-height: 1.6; color: rgba(250,249,245,0.82); max-width: 440px; font-weight: 500; }
-
-  .form-card { background: var(--off-white); border-radius: 22px; padding: 30px; }
-  .field { margin-bottom: 15px; }
-  .field label { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink-soft); margin-bottom: 7px; }
-  .field input, .field textarea {
-    width: 100%; background: var(--champagne-soft); border: 2px solid transparent; border-radius: 12px;
-    padding: 12px 14px; font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: var(--evergreen); outline: none;
-  }
-  .field input:focus, .field textarea:focus { border-color: var(--gold); }
-  .field textarea { resize: vertical; min-height: 96px; }
-  .form-submit {
-    width: 100%; background: var(--gold-light); color: var(--evergreen);
-    font-weight: 700; font-size: 15.5px; padding: 14px 20px; border-radius: 12px; border: none; cursor: pointer; margin-top: 4px;
-  }
-  .form-hint { margin-top: 12px; font-size: 12.5px; color: var(--ink-soft); font-weight: 500; }
-
-  /* ============ FOOTER ============ */
-  footer { background: var(--evergreen); padding: 34px 0 40px; border-top: 1px solid rgba(250,249,245,0.12); }
-  .footer-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  .footer-links { display: flex; gap: 22px; font-size: 13.5px; font-weight: 600; color: rgba(250,249,245,0.7); }
-  .footer-links a { text-decoration: none; }
-  .footer-links a:hover { color: var(--off-white); }
-  .footer-note { font-size: 12.5px; color: rgba(250,249,245,0.42); margin-top: 16px; font-weight: 500; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b3b33">
+  <meta name="description" content="Tandemly is the dating app for couples who want to meet other couples, build genuine connections and plan shared experiences together.">
+  <title>Tandemly | Meet other couples, together</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<div class="hero-band">
-  <div class="blob blob-gold"></div>
-  <div class="blob blob-coral"></div>
-  <div class="blob blob-jade"></div>
-
-  <nav class="wrap">
-    <div class="wordmark">Tandemly<span class="dot1">.</span><span class="dot2">.</span></div>
-    <a class="nav-cta" href="#contact">Get early access</a>
-  </nav>
-
-  <header class="hero">
-    <div class="wrap hero-inner">
-      <div class="badge-pill"><span class="dot-live"></span>Launching soon</div>
-      <h1 class="headline">Meet couples<br>you actually<br><span class="accent">click</span> with.</h1>
-      <p class="sub">Tandemly is the app for couples who want to meet other couples - discover, wave, chat, and plan a real meet, together.</p>
-      <div class="hero-ctas">
-        <a class="btn-primary" href="#contact">Get early access <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-      <div class="word-strip">
-        <span class="word-chip on">One shared profile</span>
-        <span class="word-chip">Real matches</span>
-        <span class="word-chip">Real meets</span>
-        <span class="word-chip">No pressure</span>
-      </div>
-      <div class="store-row">
-        <div class="store-badge">
-          <svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141 8 184.8 8 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-65.7-90-65.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-          <div class="store-badge-text"><span class="small">Coming soon on the</span><span class="big">App Store</span></div>
-        </div>
-        <div class="store-badge">
-          <svg viewBox="0 0 512 512"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c17.7-11.7 17.7-46.2-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
-          <div class="store-badge-text"><span class="small">Coming soon on</span><span class="big">Google Play</span></div>
-        </div>
-      </div>
-      <div class="store-note">Neither store listing is live yet - both links will connect once we launch.</div>
-      <div class="hero-spacer"></div>
-    </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Tandemly home"><span class="brand-t">t</span>andemly<span class="brand-dots" aria-hidden="true">.<b>.</b></span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="#why">Why Tandemly</a>
+      <a href="#how">How it works</a>
+      <a href="#safety">Safety</a>
+    </nav>
+    <a class="button button-small" href="#interest">Join early access</a>
   </header>
-</div>
 
-<section class="steps-section">
-  <div class="wrap">
-    <div class="section-eyebrow">How it works</div>
-    <h2 class="section-title">Four steps from "hi" to an actual plan.</h2>
-    <p class="section-body">You and your partner build one profile together, then meet other couples who are looking for the same thing you are.</p>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">01</div>
-        <h3>One shared profile</h3>
-        <p>You and your partner each write your own part. No mixed signals, no guessing who's really talking - just one honest picture of you both.</p>
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">A dating app for couples</p>
+        <h1>Meet other couples.<br><em>Together.</em></h1>
+        <p class="hero-lede">For couples who want to rediscover the spark of meeting someone new, with friendship, shared experiences and genuine chemistry leading the way.</p>
+        <div class="hero-actions">
+          <a class="button" href="#interest">Join early access <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#how">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="microcopy">Made by a couple, for couples. No pressure. No pretending.</p>
       </div>
-      <div class="step-card">
-        <div class="step-num">02</div>
-        <h3>Meet couples you click with</h3>
-        <p>Browse couples nearby, wave at the ones you're curious about, and see who's waved back. Mutual? A chat opens automatically.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">03</div>
-        <h3>Plan a real meet</h3>
-        <p>Pick an activity, a time and a place, send it as a proposal - your match confirms it in one tap.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">04</div>
-        <h3>Honest reviews</h3>
-        <p>After you've actually met, both couples can leave a private review. It only goes live once both sides have shared theirs.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="trust-section">
-  <div class="wrap">
-    <div class="trust-head">
-      <div class="section-eyebrow">Built for trust</div>
-      <h2 class="section-title">Yours to control, start to finish.</h2>
-    </div>
-    <div class="trust-row">
-      <div class="trust-card">
-        <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6z"/></svg></div>
-        <h3>Report or block, one tap</h3>
-        <p>If a match isn't a good fit, ending it and reporting it takes a moment - no explanation owed.</p>
+      <div class="hero-visual reveal" aria-label="Two couples enjoying relaxed time together">
+        <div class="photo photo-hero" role="img" aria-label="Four friends enjoying dinner together"></div>
+        <div class="floating-card shared-card" aria-hidden="true">
+          <span class="mini-label">YOUR SHARED PROFILE</span>
+          <div class="avatar-pair"><i></i><i></i></div>
+          <strong>You, as a couple</strong>
+          <small>Two voices. One honest profile.</small>
+        </div>
+        <div class="floating-card chemistry-card" aria-hidden="true">
+          <span class="spark">✦</span>
+          <div><strong>It’s mutual</strong><small>Start a conversation</small></div>
+        </div>
       </div>
-      <div class="trust-card">
-        <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.3 7-11a7 7 0 0 0-14 0c0 4.7 7 11 7 11z"/></svg></div>
-        <h3>Your location stays yours</h3>
-        <p>Other couples only ever see an approximate area and distance - never your exact location.</p>
-      </div>
-      <div class="trust-card">
-        <div class="trust-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg></div>
-        <h3>Real couples, real photos</h3>
-        <p>Every profile photo is of the two of you together - never a stranger's, never AI-generated.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="access-section" id="contact">
-  <div class="access-blob"></div>
-  <div class="wrap access-grid">
-    <div class="access-copy">
-      <div class="section-eyebrow" style="background:rgba(250,249,245,0.14);color:var(--gold-light)">Get in touch</div>
-      <h2>Early access, questions, or support.</h2>
-      <p>Whether you want to be one of the first couples on Tandemly, or just have a question - send us a message and a real person will get back to you.</p>
-    </div>
-    <form class="form-card" id="contact-form">
-      <div class="field">
-        <label for="f-name">Your name</label>
-        <input id="f-name" type="text" required autocomplete="name">
+    <section class="positioning" aria-label="Tandemly introduction">
+      <p class="kicker">CURIOUS, NOT COMPLICATED</p>
+      <p class="positioning-line">Some couples want something more open. Others simply want to meet new people and see where a connection goes. Tandemly gives you room to explore that <em>together</em>, at your own pace.</p>
+      <div class="positioning-notes">
+        <span>Couple-to-couple</span><span>Friendship first</span><span>Chemistry without pressure</span>
       </div>
-      <div class="field">
-        <label for="f-email">Email</label>
-        <input id="f-email" type="email" required autocomplete="email">
+    </section>
+
+    <section class="why section" id="why">
+      <div class="section-heading reveal">
+        <p class="eyebrow">There was a space missing</p>
+        <h2>Not a singles app.<br>Not full-on ENM.<br><em>Something in between.</em></h2>
       </div>
-      <div class="field">
-        <label for="f-message">Message</label>
-        <textarea id="f-message" required></textarea>
+      <div class="why-story reveal">
+        <p class="lead">We built Tandemly after looking for a place that felt right for regular, largely monogamous couples who were curious about a more monogamish edge. The alternatives felt too intense.</p>
+        <p>In conversations with other couples, we kept hearing a gentler ambition: meet another couple, build a real friendship, share good experiences and leave space for mutual attraction or chemistry without making it the whole point.</p>
+        <p class="founder-note"><span>✦</span> That anecdotal insight shaped a calmer kind of app.</p>
       </div>
-      <button class="form-submit" type="submit" id="f-submit">Send message</button>
-      <p class="form-hint">Opens your email app, addressed to us and ready to send.</p>
-    </form>
-  </div>
-</section>
+    </section>
 
-<footer>
-  <div class="wrap footer-row">
-    <div class="wordmark" style="font-size:22px">Tandemly<span class="dot1">.</span><span class="dot2">.</span></div>
-    <div class="footer-links">
-      <a href="#contact">Contact</a>
-      <a href="#contact">Support</a>
-    </div>
-  </div>
-  <div class="wrap"><span class="footer-note">© 2026 Tandemly, part of Luxford Interactive. All rights reserved.</span></div>
-</footer>
+    <section class="pillars section" id="how">
+      <div class="section-heading compact reveal">
+        <p class="eyebrow">Designed around the two of you</p>
+        <h2>Connection,<br><em>at couple pace.</em></h2>
+      </div>
+      <div class="pillar-list">
+        <article class="pillar reveal">
+          <div class="pillar-number">01</div>
+          <div class="pillar-copy"><h3>Couple-focused</h3><p>Create one shared profile, discover other couples together, and make connections that work for both of you.</p></div>
+          <div class="pillar-art profile-art" aria-hidden="true"><span class="portrait p1"></span><span class="portrait p2"></span><b>ONE PROFILE<br>TWO PERSPECTIVES</b></div>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-number">02</div>
+          <div class="pillar-copy"><h3>Relaxed, slow-burn</h3><p>Start with conversation. Find your rhythm. Let friendship, attraction and chemistry develop without expectation.</p></div>
+          <div class="pillar-art slow-art" aria-hidden="true"><i>hello</i><i>you two seem lovely</i><i>fancy a drink?</i></div>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar-number">03</div>
+          <div class="pillar-copy"><h3>Intentional by design</h3><p>Built-in tools such as Plan a Meet help promising chats become comfortable, real-world shared experiences.</p></div>
+          <div class="pillar-art plan-art" aria-hidden="true"><small>PLAN A MEET</small><strong>Sunday drinks</strong><span>5:00 pm · The Garden Room</span><button type="button" tabindex="-1">Sounds good</button></div>
+        </article>
+      </div>
+    </section>
 
-<script>
-  // GitHub Pages serves static files only - no server to actually send an
-  // email from. Rather than fake a "sent!" confirmation with nowhere for
-  // the message to go, this opens the visitor's own email app, addressed
-  // to admin@luxfordinteractive.com and pre-filled with what they typed -
-  // a real send, just via their own mail client instead of ours.
-  var form = document.getElementById('contact-form');
+    <section class="feature-story section">
+      <div class="feature-photo photo photo-coast" role="img" aria-label="Two couples walking together by the coast"></div>
+      <div class="feature-copy reveal">
+        <p class="eyebrow">More real life. Less endless chat.</p>
+        <h2>Make plans you’ll <em>look forward to.</em></h2>
+        <p>Tandemly nudges good conversations towards something simple and real: coffee, dinner, a walk or a gig, with everyone on the same page.</p>
+        <ol class="meet-steps">
+          <li><span>1</span><div><strong>Find your people</strong><small>Wave when another couple catches your interest.</small></div></li>
+          <li><span>2</span><div><strong>See if it’s mutual</strong><small>A conversation opens only when both couples choose it.</small></div></li>
+          <li><span>3</span><div><strong>Plan it together</strong><small>Suggest an activity, time and place without the admin spiral.</small></div></li>
+        </ol>
+      </div>
+    </section>
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = document.getElementById('f-name').value.trim();
-    var email = document.getElementById('f-email').value.trim();
-    var message = document.getElementById('f-message').value.trim();
-    if (!name || !email || !message) return;
+    <section class="safety section" id="safety">
+      <div class="safety-copy reveal">
+        <p class="eyebrow gold">Comfort comes first</p>
+        <h2>Space to explore.<br><em>Control to feel safe.</em></h2>
+        <p>Your boundaries belong to you. Tandemly is designed to make intentions clearer and give either partner straightforward control over every connection.</p>
+        <a class="light-link" href="#trust-details">Explore our approach to trust <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="trust-grid" id="trust-details">
+        <article><span aria-hidden="true">◎</span><h3>Shared participation</h3><p>Both partners contribute to the couple profile and connection.</p></article>
+        <article><span aria-hidden="true">⌁</span><h3>Private by default</h3><p>Approximate areas support discovery without exposing exact locations.</p></article>
+        <article><span aria-hidden="true">⊘</span><h3>Clear boundaries</h3><p>Simple block and report controls are available whenever they’re needed.</p></article>
+        <article><span aria-hidden="true">✓</span><h3>Mutual connections</h3><p>Chat begins only when both couples show interest.</p></article>
+      </div>
+    </section>
 
-    var subject = 'Tandemly early access - ' + name;
-    var body = message + '\n\n(from ' + name + ', ' + email + ')';
-    var mailto = 'mailto:admin@luxfordinteractive.com'
-      + '?subject=' + encodeURIComponent(subject)
-      + '&body=' + encodeURIComponent(body);
-    window.location.href = mailto;
-  });
-</script>
+    <section class="quote-section section">
+      <div class="quote-photo photo photo-cafe" role="img" aria-label="Friends raising a glass over dinner"></div>
+      <blockquote class="reveal">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <p>The exciting part of dating again, side by side with your favourite person.</p>
+        <footer>Tandemly’s founding idea</footer>
+      </blockquote>
+    </section>
+
+    <section class="interest" id="interest">
+      <div>
+        <p class="eyebrow">Be there from the beginning</p>
+        <h2>Meet differently.<br><em>Meet Tandemly.</em></h2>
+      </div>
+      <form class="interest-form" data-interest-form>
+        <label for="email">Email address</label>
+        <div class="form-row">
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <button class="button" type="submit">Join early access</button>
+        </div>
+        <p class="form-note" data-form-note>We’ll open your email app with a ready-to-send early-access request.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-t">t</span>andemly<span class="brand-dots" aria-hidden="true">.<b>.</b></span></a>
+    <p>Meet other couples, together.</p>
+    <nav aria-label="Footer navigation"><a href="#why">Our story</a><a href="#safety">Safety</a><a href="#interest">Early access</a></nav>
+    <small>© 2026 Tandemly, part of Luxford Interactive. All rights reserved.</small>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
